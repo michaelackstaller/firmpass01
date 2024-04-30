@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firmpass/components/login_textField.dart';
-import 'package:firmpass/screens/home_screen.dart';
 import 'package:firmpass/components/login_button.dart';
 
 class LoginPage extends StatelessWidget {
@@ -20,8 +21,9 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 0),
               /*SizedBox(
                 width: 100,
                 height: 100,
@@ -56,16 +58,14 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 10),
-
-              const SizedBox(height: 25),
+              const SizedBox(height: 35),
 
               // sign in button
               LoginButton(
                 myButtonText: "Login",
                 onTapFunction: () async {
-                  Navigator.pushNamed(context, '/screens/home_screen.dart');
-                  //TODO loginFunktion
+                  Navigator.pushNamed(context, "/home_screen");
+                  //Loginfunction mit Datenabgleich
                 },
               ),
 

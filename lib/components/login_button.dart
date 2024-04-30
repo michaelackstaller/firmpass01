@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
-  final Function()? onTapFunction;
+  final void Function()? onTapFunction;
   final String myButtonText;
 
   const LoginButton(
@@ -9,28 +9,33 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTapFunction,
-      child: Container(
+    return InkWell(
+      borderRadius: BorderRadius.circular(6),
+      splashColor: Colors.orange,
+      highlightColor: Colors.orange,
+
+      onTap: onTapFunction,
+
+      child: Ink(
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.symmetric(horizontal: 120),
+        width: 150,
         decoration: BoxDecoration(
           color: Colors.amber,
           borderRadius: BorderRadius.circular(6),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Login", //TODO add myButtonText
-              style: TextStyle(
+              myButtonText, //TODO add myButtonText
+              style: const TextStyle(
                 color: Color.fromARGB(255, 252, 246, 226),
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
-            SizedBox(width: 5),
-            Icon(
+            const SizedBox(width: 5),
+            const Icon(
               Icons.keyboard_double_arrow_right_rounded,
               color: Color.fromARGB(255, 252, 246, 226),
               

@@ -1,3 +1,5 @@
+import 'package:firmpass/screens/home_screen.dart';
+import 'package:firmpass/screens/loading_screen.dart';
 import 'package:firmpass/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,9 @@ class MyApp extends StatelessWidget {
       home: LoginPage(),
 
       routes: {
-        '/screens/login_screen.dart': (context) => LoginPage(),
+        '/login_screen': (context) => LoginPage(),
+        '/home_screen': (context) => HomeScreen(),
+        '/loading_screen': (context) => LoadingScreen(),
       },
     );
   }

@@ -64,7 +64,8 @@ class LoginPage extends StatelessWidget {
               LoginButton(
                 myButtonText: "Login",
                 onTapFunction: () async {
-                  Navigator.pushNamed(context, "/home_screen");
+                  await Future.delayed(const Duration(milliseconds: 80));
+                  Navigator.pushNamed(context, "/loading_screen");
                   //Loginfunction mit Datenabgleich
                 },
               ),

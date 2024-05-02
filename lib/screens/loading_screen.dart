@@ -15,36 +15,39 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.yellow.shade100,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          SizedBox(
-            height: 300,
-            width: 300,
-            child: Image.asset('lib/images/Firmung.png'), //TODO schöneres Foto
-          ),
-          const Text(
-            "Deine Daten werden abgerufen,\nbitte warte einen Moment.",
-            style: TextStyle(
-              color: Colors.orange,
-              fontSize: 20,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: Colors.yellow.shade100,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(
+              height: 300,
+              width: 300,
+              child: Image.asset('lib/images/Firmung.png'), //TODO schöneres Foto
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 60,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50.0),
-            child: LinearProgressIndicator(
-              color: Colors.orange,
+            const Text(
+              "Deine Daten werden abgerufen,\nbitte warte einen Moment.",
+              style: TextStyle(
+                color: Colors.orange,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(height: 200),
-          const Text("Application by Acksmi and Woolchalk", style: TextStyle(color: Colors.blueGrey),)
-        ],
+            const SizedBox(
+              height: 60,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50.0),
+              child: LinearProgressIndicator(
+                color: Colors.orange,
+              ),
+            ),
+            const SizedBox(height: 200),
+            const Text("Application by Acksmi and Woolchalk", style: TextStyle(color: Colors.blueGrey),)
+          ],
+        ),
       ),
     );
   }

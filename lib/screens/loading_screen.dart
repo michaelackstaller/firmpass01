@@ -18,7 +18,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: Colors.yellow.shade100,
+        backgroundColor: const Color.fromARGB(255, 255, 250, 200),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

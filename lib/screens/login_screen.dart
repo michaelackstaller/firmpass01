@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firmpass/components/login_textField.dart';
 import 'package:firmpass/components/login_button.dart';
@@ -17,7 +15,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100],
+      backgroundColor: const Color.fromARGB(255, 255, 250, 200),
       body: SafeArea(
         child: Center(
           child: Column(

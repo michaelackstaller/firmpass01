@@ -10,18 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 1;
-  final List<Widget> _pages = <Widget>[
-    Center(
-      child: Text("Test"),
-    )
-  ];
-  void _onItemTapped(int index){
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+    
 
   @override
   Widget build(BuildContext context) {
@@ -31,45 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.pushNamed(context, "/login_screen");
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 247, 212, 100),
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: const Text(
-            "F I R M P A S S",
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black45),
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          iconSize: 30,
-          
-          backgroundColor: const Color.fromARGB(255, 247, 212, 100),
-          //selectedItemColor: Colors.orange,
-          fixedColor: Colors.deepOrange,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: "Home"
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.check_circle_outline,
-              ),
-              label: "Checks"
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings,
-              ),
-              label: "Einstellungen"
-            )
-          ],
-        ),
         backgroundColor: Color.fromARGB(255, 255, 250, 200),
         body: Center(
           child: Column(

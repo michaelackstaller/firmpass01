@@ -16,7 +16,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true, //TODO change to false
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 250, 200),
         body: Column(
@@ -53,8 +53,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
   void initState(){
     super.initState();
-    Timer(Duration(seconds: 5),(){
-      Navigator.pushNamed(context, "/home_screen");
+    Timer(Duration(seconds: 2),(){
+      Navigator.pushNamed(context, "/pageNavigator");
     });//TODO Bedingung Loading done
   }
 }

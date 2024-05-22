@@ -1,6 +1,7 @@
 
 
 //TODO Scanner ist noch nicht funktional!!!
+//TODO Einrichtung ios
 
 
 

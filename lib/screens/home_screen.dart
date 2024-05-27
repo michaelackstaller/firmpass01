@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firmpass/components/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -17,16 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        Navigator.pushNamed(context, "/login_screen");
+        exit(0); //TODO: Evtl. Probleme bei Apple: https://developer.apple.com/library/archive/qa/qa1561/_index.html
       },
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 250, 200),
+        backgroundColor: const Color.fromARGB(255, 255, 250, 200),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 0,
               ),
               QrImageView(

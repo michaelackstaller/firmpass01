@@ -36,7 +36,7 @@ class _PageNavigatorState extends State<PageNavigator> {
         backgroundColor: const Color.fromARGB(255, 247, 212, 100),
         //selectedItemColor: Colors.orange,
         activeColor: Colors.red,
-        color: Colors.black,
+        color: Colors.black45,
         tabBackgroundColor: Colors.amber,
         tabMargin: const EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(19),
@@ -57,8 +57,7 @@ class _PageNavigatorState extends State<PageNavigator> {
         ],
 
         onTabChange: (newIndex) {
-          pageController.animateToPage(newIndex,
-              duration: const Duration(milliseconds: 500), curve: Curves.ease);
+          pageController.jumpToPage(newIndex);
         },
       ),
       body: PageView(
@@ -68,7 +67,7 @@ class _PageNavigatorState extends State<PageNavigator> {
             currentIndex = newIndex;
           });
         },
-        children: const [
+        children: [
           HomeScreen(),
           OverviewScreen(),
           BarcodeScannerSimple()

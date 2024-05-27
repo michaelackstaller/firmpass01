@@ -25,7 +25,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             SizedBox(
               height: 300,
               width: 300,
-              child: Image.asset('lib/images/Firmung.png'), //TODO schöneres Foto
+              child: Image.asset('lib/images/JugendLogo.png'), //TODO schöneres Foto
             ),
             const Text(
               "Deine Daten werden abgerufen,\nbitte warte einen Moment.",

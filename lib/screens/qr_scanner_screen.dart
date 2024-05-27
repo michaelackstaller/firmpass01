@@ -1,10 +1,5 @@
-
-
 //TODO Scanner ist noch nicht funktional!!!
-//TODO Einrichtung ios
-
-
-
+//TODO Scanner Einrichtung ios
 
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -39,7 +34,6 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     if (mounted) {
       setState(() {
         _barcode = barcodes.barcodes.firstOrNull;
-
       });
     }
   }
@@ -49,6 +43,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
+        alignment: Alignment.bottomRight,
         children: [
           MobileScanner(
             onDetect: _handleBarcode,
@@ -67,6 +62,14 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: FloatingActionButton(
+              backgroundColor: Colors.amber,
+              onPressed: () => Navigator.pushNamed(context, '/login_screen'), //TODO manual search_page
+              child: const Icon(Icons.search_outlined),
+            ),
+          )
         ],
       ),
     );

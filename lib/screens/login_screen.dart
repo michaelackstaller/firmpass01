@@ -20,15 +20,16 @@ class LoginPage extends StatelessWidget {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 0),
               /*SizedBox(
                 width: 100,
                 height: 100,
                 child:
-                    Image.asset("assets/images/image.png"), //TODO Schönes Foto!
+                    Image.asset("lib/images/JugendLogo.png"), //TODO Schönes Foto!
               ),*/
-              const SizedBox(height: 50),
+              
               // welcome back, you've been missed!
               Text(
                 'Login',
@@ -67,10 +68,6 @@ class LoginPage extends StatelessWidget {
                   //Loginfunction mit Datenabgleich
                 },
               ),
-
-              const SizedBox(height: 50),
-
-              const SizedBox(height: 50),
             ],
           ),
         ),

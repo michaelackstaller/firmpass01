@@ -129,4 +129,8 @@ class Api {
       throw Exception('Failed to delete FirmUser');
     }
   }
+
+  Future<bool> isUserLoggedIn() async {
+    return true;
+  }
 }

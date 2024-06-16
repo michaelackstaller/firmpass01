@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+// ignore: must_be_immutable
 class OverviewItem extends StatelessWidget {
   final Color backgroundItemColor;
   final String topic;

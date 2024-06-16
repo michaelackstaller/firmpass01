@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firmpass/components/login_textField.dart';
 import 'package:firmpass/components/login_button.dart';
@@ -17,20 +15,21 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100],
+      backgroundColor: const Color.fromARGB(255, 255, 250, 200),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 0),
               /*SizedBox(
                 width: 100,
                 height: 100,
                 child:
-                    Image.asset("assets/images/image.png"), //TODO Schönes Foto!
+                    Image.asset("lib/images/JugendLogo.png"), //TODO Schönes Foto!
               ),*/
-              const SizedBox(height: 50),
+              
               // welcome back, you've been missed!
               Text(
                 'Login',
@@ -64,14 +63,11 @@ class LoginPage extends StatelessWidget {
               LoginButton(
                 myButtonText: "Login",
                 onTapFunction: () async {
-                  Navigator.pushNamed(context, "/home_screen");
+                  await Future.delayed(const Duration(milliseconds: 80));
+                  Navigator.pushNamed(context, "/loading_screen");
                   //Loginfunction mit Datenabgleich
                 },
               ),
-
-              const SizedBox(height: 50),
-
-              const SizedBox(height: 50),
             ],
           ),
         ),

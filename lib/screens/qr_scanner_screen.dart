@@ -1,9 +1,6 @@
 //TODO Scanner ist noch nicht funktional!!!
 //TODO Scanner Einrichtung ios
 
-import 'dart:ffi';
-
-import 'package:firmpass/components/save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

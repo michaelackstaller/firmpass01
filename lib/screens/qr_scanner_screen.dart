@@ -28,7 +28,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     }
     wert = value.displayValue ?? "No";
     if (!checkedCodes.contains(wert)) {
-      checkCounter++;
+      checkCounter = checkCounter + 1;
       checkedCodes.add(wert);
     }
     return Text(
@@ -92,8 +92,6 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
-              
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: FloatingActionButton.extended(
@@ -107,18 +105,35 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                           : const Color.fromARGB(255, 83, 83, 83),
                     ),
                   ),
-                  icon: Icon(checkCounter > 0 ? Icons.check : Icons.qr_code_2, color: checkCounter > 0
-                      ? Colors.green
-                      : const Color.fromARGB(255, 83, 83, 83),),
-                  backgroundColor: checkCounter > 0 ? Colors.amber : Colors.grey,
-                  onPressed: checkCounter > 0 ? () => {} : null,
+                  icon: Icon(
+                    checkCounter > 0 ? Icons.check : Icons.qr_code_2,
+                    color: checkCounter > 0
+                        ? Colors.green
+                        : const Color.fromARGB(255, 83, 83, 83),
+                  ),
+                  backgroundColor:
+                      checkCounter > 0 ? Colors.amber : Colors.grey,
+                  onPressed: checkCounter > 0
+                      ? () => {
+                            checkedCodes.clear(),
+                            checkCounter = 0,
+                          }
+                      : null,
                 ),
               ),
-              
             ],
           )
         ],
       ),
     );
   }
+
+  void confirm() {
+    save();
+    checkedCodes.clear();
+    checkCounter = 0;
+    setState(() {});
+  } //TODO Confirm
+
+  void save() {}
 }

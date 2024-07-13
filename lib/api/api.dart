@@ -1,129 +1,91 @@
 import 'dart:convert';
-import 'package:firmpass/data/models/firm_element.dart';
-import 'package:firmpass/data/models/firm_user.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Api {
-  final String baseUrl;
+  final String baseUrl = "https://firmapi.acksmi.de";
 
-  Api({required this.baseUrl});
+  Api();
 
-
-  Future<List<FirmElement>> getFirmElements() async {
-    final response = await http.get(Uri.parse('$baseUrl/firmElements'));
-
-    if (response.statusCode == 200) {
-      List<dynamic> body = jsonDecode(response.body);
-      List<FirmElement> firmElements =
-          body.map((dynamic item) => FirmElement.fromJson(item)).toList();
-      return firmElements;
-    } else {
-      throw Exception('Failed to load FirmElements');
-    }
+  Future<String> _getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('jwt_token') ?? '';
   }
 
-  Future<FirmElement> getFirmElementById(String id) async {
-    final response = await http.get(Uri.parse('$baseUrl/firmElements/$id'));
-
-    if (response.statusCode == 200) {
-      return FirmElement.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load FirmElement');
-    }
+  Future<String> getFirmlingId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('firmling_id') ?? '';
   }
 
-  Future<void> createFirmElement(FirmElement firmElement) async {
+  Future<void> _saveToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('jwt_token', token);
+  }
+
+  Future<void> _saveFirmlingId(String firmlingId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('firmling_id', firmlingId);
+  }
+
+  Future<Map<String, String>> _headers() async {
+    String token = await _getToken();
+    return {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    };
+  }
+
+  Future<void> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/firmElements'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(firmElement.toJson()),
+      Uri.parse('$baseUrl/auth/login'),
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode({'username': username, 'password': password}),
     );
-
-    if (response.statusCode != 201) {
-      throw Exception('Failed to create FirmElement');
-    }
-  }
-
-  Future<void> updateFirmElement(FirmElement firmElement) async {
-    final response = await http.put(
-      Uri.parse('$baseUrl/firmElements/${firmElement.id}'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(firmElement.toJson()),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to update FirmElement');
-    }
-  }
-
-  Future<void> deleteFirmElement(String id) async {
-    final response = await http.delete(
-      Uri.parse('$baseUrl/firmElements/$id'),
-    );
-
-    if (response.statusCode != 204) {
-      throw Exception('Failed to delete FirmElement');
-    }
-  }
-
-  Future<List<FirmUser>> getFirmUsers() async {
-    final response = await http.get(Uri.parse('$baseUrl/firmUsers'));
 
     if (response.statusCode == 200) {
-      List<dynamic> body = jsonDecode(response.body);
-      List<FirmUser> firmUsers =
-          body.map((dynamic item) => FirmUser.fromJson(item)).toList();
-      return firmUsers;
+      String token = response.body;
+      await _saveToken(token);
+      await fetchAndSaveFirmlingId();
     } else {
-      throw Exception('Failed to load FirmUsers');
+      throw Exception('Failed to login');
     }
   }
 
-  Future<FirmUser> getFirmUserById(String id) async {
-    final response = await http.get(Uri.parse('$baseUrl/firmUsers/$id'));
+  Future<void> fetchAndSaveFirmlingId() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/auth/firmlingIdFromToken'),
+      headers: await _headers(),
+    );
 
     if (response.statusCode == 200) {
-      return FirmUser.fromJson(jsonDecode(response.body));
+      _saveFirmlingId(response.body);
     } else {
-      throw Exception('Failed to load FirmUser');
+      print('Failed to fetch Firmling ID, status code: ${response.statusCode}');
+      throw Exception('Failed to fetch Firmling ID');
     }
   }
 
-  Future<void> createFirmUser(FirmUser firmUser) async {
+  Future<bool> isUserLoggedIn() async {
+    String token = await _getToken();
+    if (token.isEmpty) return false;
+
     final response = await http.post(
-      Uri.parse('$baseUrl/firmUsers'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(firmUser.toJson()),
+      Uri.parse('$baseUrl/auth/validateToken'),
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode({'token': token}),
     );
 
-    if (response.statusCode != 201) {
-      throw Exception('Failed to create FirmUser');
-    }
-  }
-
-  Future<void> updateFirmUser(FirmUser firmUser) async {
-    final response = await http.put(
-      Uri.parse('$baseUrl/firmUsers/${firmUser.id}'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(firmUser.toJson()),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to update FirmUser');
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 
   Future<void> deleteFirmUser(String id) async {
     final response = await http.delete(
-      Uri.parse('$baseUrl/firmUsers/$id'),
+      Uri.parse('$baseUrl/auth/users/$id'),
+      headers: await _headers(),
     );
 
     if (response.statusCode != 204) {
@@ -131,7 +93,31 @@ class Api {
     }
   }
 
-  Future<bool> isUserLoggedIn() async {
-    return true;
+  Future<List<Map<String, dynamic>>> getFirmstundenForFirmling() async {
+    String firmlingId = await getFirmlingId();
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/firmstunde/list/$firmlingId'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode == 200) {
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load Firmstunden for Firmling');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getFirmSonntageForFirmling() async {
+    String firmlingId = await getFirmlingId();
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/firmstunde/list/$firmlingId'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode == 200) {
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load Firmstunden for Firmling');
+    }
   }
 }

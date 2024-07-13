@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:firmpass/components/login_button.dart';
+import 'package:firmpass/components/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -12,14 +11,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-    
-
+  bool help = false;
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        exit(0); //TODO: Evtl. Probleme bei Apple: https://developer.apple.com/library/archive/qa/qa1561/_index.html
+        exit(
+            0); //TODO: Evtl. Probleme bei Apple: https://developer.apple.com/library/archive/qa/qa1561/_index.html
       },
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 250, 200),
@@ -28,12 +27,91 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const SizedBox(
-                height: 0,
-              ),
-              QrImageView(
-                data: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                size: 250,
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        width: 40,
+                      ),
+                      const Icon(Icons.arrow_downward_rounded),
+                      const Text(
+                        "Deine ID",
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                      const Icon(Icons.arrow_downward_rounded),
+                      IconButton(
+                          onPressed: () {
+                            if (!help) {
+                              help = true;
+                              setState(() {});
+                            } else {
+                              help = false;
+                              setState(() {});
+                            }
+                          },
+                          icon: !help
+                              ? const Icon(Icons.help_outline_rounded, color: Colors.grey)
+                              : const Icon(Icons.check_circle_outline_rounded, color: Colors.grey,))
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                  Stack(alignment: Alignment(0, 0), children: [
+                    QrImageView(
+                      data: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                      size: 250,
+                    ),
+                    help
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: Transform.rotate(
+                                    angle: 0.8,
+                                    child: Container(
+                                      width: 100,
+                                      height: 130,
+                                      color: Color.fromARGB(255, 210, 253, 20),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color.fromARGB(255, 210, 253, 20),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        "Das ist deine persönliche ID mit der wir dich identifizieren können. Komm am Ende unserer gemeinsammen Aktionen zu einem der Begleiter und zeig im diese, damit wird deine Teilnahme bestätigt:)",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      Submit_Button(
+                                        myButtonText: "Verstanden",
+                                        onTapFunction: () {
+                                          help = false;
+                                          setState(() {});
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            child: Text(""),
+                          ),
+                  ]),
+                ],
               ),
               Container(
                 padding: EdgeInsets.all(10),
@@ -58,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(fontSize: 20),
                         ),
                         Icon(
-                          Icons.check_circle_outline,
+                          Icons.check_circle_outline_rounded,
                           size: 20,
                         )
                       ],
@@ -71,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(fontSize: 20),
                         ),
                         Icon(
-                          Icons.check_circle_outline,
+                          Icons.check_circle_outline_rounded,
                           size: 20,
                         )
                       ],
@@ -84,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(fontSize: 20),
                         ),
                         Icon(
-                          Icons.check_circle_outline,
+                          Icons.check_circle_outline_rounded,
                           size: 20,
                         )
                       ],
@@ -92,13 +170,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              LoginButton(
-                  myButtonText: "scanner",
-                  onTapFunction: () async {
-                    await Future.delayed(const Duration(milliseconds: 80));
-                    Navigator.pushNamed(context, '/qr_scanner_screen');
-                  }),
-              const SizedBox(height: 0)
+              const SizedBox(
+                height: 0,
+              )
             ],
           ),
         ),

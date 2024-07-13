@@ -1,9 +1,6 @@
 //TODO Scanner ist noch nicht funktional!!!
 //TODO Scanner Einrichtung ios
 
-import 'dart:ffi';
-
-import 'package:firmpass/components/save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -31,7 +28,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     }
     wert = value.displayValue ?? "No";
     if (!checkedCodes.contains(wert)) {
-      checkCounter++;
+      checkCounter = checkCounter + 1;
       checkedCodes.add(wert);
     }
     return Text(
@@ -88,15 +85,13 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             child: FloatingActionButton(
               backgroundColor: Colors.amber,
               onPressed: () => Navigator.pushNamed(
-                  context, '/login_screen'), //TODO manual search_page
+                  context, '/manualSearch_screen'), //TODO manual search_page
               child: const Icon(Icons.search_outlined),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
-              
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: FloatingActionButton.extended(
@@ -110,18 +105,38 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                           : const Color.fromARGB(255, 83, 83, 83),
                     ),
                   ),
-                  icon: Icon(checkCounter > 0 ? Icons.check : Icons.qr_code_2, color: checkCounter > 0
-                      ? Colors.green
-                      : const Color.fromARGB(255, 83, 83, 83),),
-                  backgroundColor: checkCounter > 0 ? Colors.amber : Colors.grey,
-                  onPressed: checkCounter > 0 ? () => {} : null,
+                  icon: Icon(
+                    checkCounter > 0 ? Icons.check : Icons.qr_code_2,
+                    color: checkCounter > 0
+                        ? Colors.green
+                        : const Color.fromARGB(255, 83, 83, 83),
+                  ),
+                  backgroundColor:
+                      checkCounter > 0 ? Colors.amber : Colors.grey,
+                  onPressed: checkCounter > 0
+                      ? () => {
+                            checkedCodes.clear(),
+                            checkCounter = 0,
+                            setState(() {
+                              
+                            })
+                          }
+                      : null,
                 ),
               ),
-              
             ],
           )
         ],
       ),
     );
   }
+
+  void confirm() {
+    save();
+    checkedCodes.clear();
+    checkCounter = 0;
+    setState(() {});
+  } //TODO Confirm
+
+  void save() {}
 }

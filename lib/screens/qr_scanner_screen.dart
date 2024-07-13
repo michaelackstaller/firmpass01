@@ -85,7 +85,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             child: FloatingActionButton(
               backgroundColor: Colors.amber,
               onPressed: () => Navigator.pushNamed(
-                  context, '/login_screen'), //TODO manual search_page
+                  context, '/manualSearch_screen'), //TODO manual search_page
               child: const Icon(Icons.search_outlined),
             ),
           ),
@@ -117,6 +117,9 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                       ? () => {
                             checkedCodes.clear(),
                             checkCounter = 0,
+                            setState(() {
+                              
+                            })
                           }
                       : null,
                 ),

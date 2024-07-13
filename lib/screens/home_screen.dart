@@ -33,14 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
-                        width: 15,
+                        width: 40,
                       ),
+                      const Icon(Icons.arrow_downward_rounded),
                       const Text(
                         "Deine ID",
                         style: TextStyle(
                           fontSize: 30,
                         ),
                       ),
+                      const Icon(Icons.arrow_downward_rounded),
                       IconButton(
                           onPressed: () {
                             if (!help) {
@@ -52,10 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           },
                           icon: !help
-                              ? const Icon(Icons.help_outline_rounded)
-                              : const Icon(Icons.check_circle_outline_rounded))
+                              ? const Icon(Icons.help_outline_rounded, color: Colors.grey)
+                              : const Icon(Icons.check_circle_outline_rounded, color: Colors.grey,))
                     ],
                   ),
+                  const SizedBox(height: 10,),
                   Stack(alignment: Alignment(0, 0), children: [
                     QrImageView(
                       data: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",

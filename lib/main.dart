@@ -1,3 +1,4 @@
+import 'package:firmpass/screens/manualSearch_Page.dart';
 import 'package:firmpass/screens/pageNavigator.dart';
 import 'package:firmpass/screens/home_screen.dart';
 import 'package:firmpass/screens/loading_screen.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       ]);
     return MaterialApp(
       
-      title: 'Flutter Demo',
+      title: 'Firmpass',
       home: LoginPage(),
 
       routes: {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/loading_screen': (context) => LoadingScreen(),
         '/qr_scanner_screen':(context) => BarcodeScannerSimple(),
         '/pageNavigator':(context) => PageNavigator(),
+        '/manualSearch_screen':(context) => ManualSearchPage(),
       },
     );
   }

@@ -107,10 +107,10 @@ class Api {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getFirmSonntageForFirmling() async {
+  Future<List<Map<String, dynamic>>> getFirmsonntageForFirmling() async {
     String firmlingId = await getFirmlingId();
     final response = await http.get(
-      Uri.parse('$baseUrl/api/firmstunde/list/$firmlingId'),
+      Uri.parse('$baseUrl/api/firmsonntag/list/$firmlingId'),
       headers: await _headers(),
     );
 
@@ -118,6 +118,43 @@ class Api {
       return List<Map<String, dynamic>>.from(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load Firmstunden for Firmling');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllFirmlingeNames() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/firmlinge/names'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode == 200) {
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load Firmlinge names');
+    }
+  }
+
+  Future<void> markFirmstundeAsCompleted(String firmlingId, String firmstundeId) async {
+    print('$baseUrl/api/firmstunde/complete/$firmlingId/$firmstundeId');
+    final response = await http.put(
+      Uri.parse('$baseUrl/api/firmstunde/complete/$firmlingId/$firmstundeId'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode != 200) {
+      print(response.statusCode);
+      throw Exception('Failed to mark Firmstunde as completed');
+    }
+  }
+
+  Future<void> markFirmsonntagAsCompleted(String firmlingId, String firmsonntagId) async {
+    final response = await http.put(
+      Uri.parse('$baseUrl/api/firmsonntag/complete/$firmlingId/$firmsonntagId'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to mark Firmsonntag as completed');
     }
   }
 }

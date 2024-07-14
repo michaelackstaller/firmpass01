@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
 
       if (isLoggedIn) {
         // Navigate to the home screen or dashboard after successful login
-        Navigator.pushNamed(context, "/home_screen");
+        Navigator.pushNamed(context, "/loading_screen");
       } else {
         // Show an error message if login fails
         ScaffoldMessenger.of(context).showSnackBar(
@@ -91,7 +91,7 @@ class LoginPage extends StatelessWidget {
                   myButtonText: "Login",
                   onTapFunction: () async {
                     signUserIn(context);
-                    Navigator.pushNamed(context, "/loading_screen");
+
                   },
                 ),
               ],

@@ -1,6 +1,3 @@
-//TODO Scanner ist noch nicht funktional!!!
-//TODO Scanner Einrichtung ios
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -83,6 +80,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
             child: FloatingActionButton(
+              heroTag: 'searchButton', // Eindeutiger Tag
               backgroundColor: Colors.amber,
               onPressed: () => Navigator.pushNamed(
                   context, '/manualSearch_screen'), //TODO manual search_page
@@ -95,6 +93,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: FloatingActionButton.extended(
+                  heroTag: 'checkButton', // Eindeutiger Tag
                   extendedPadding: EdgeInsets.all(checkCounter > 0 ? 15 : 5),
                   label: Text(
                     checkCounter > 0 ? "check-in" : "erst scannen",
@@ -112,15 +111,15 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                         : const Color.fromARGB(255, 83, 83, 83),
                   ),
                   backgroundColor:
-                      checkCounter > 0 ? Colors.amber : Colors.grey,
+                  checkCounter > 0 ? Colors.amber : Colors.grey,
                   onPressed: checkCounter > 0
                       ? () => {
-                            checkedCodes.clear(),
-                            checkCounter = 0,
-                            setState(() {
-                              
-                            })
-                          }
+                    checkedCodes.clear(),
+                    checkCounter = 0,
+                    setState(() {
+
+                    })
+                  }
                       : null,
                 ),
               ),

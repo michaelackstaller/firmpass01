@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // Hier kannst du die entsprechenden API-Methoden aufrufen
       // und die Anzahl der Gottesdienste, Gruppenstunden und Aktionen setzen
       final firmstunden = await _api.getFirmstundenForFirmling();
-      final firmsonntage = await _api.getFirmSonntageForFirmling();
+      final firmsonntage = await _api.getFirmsonntageForFirmling();
       id = await _api.getFirmlingId();
 
       setState(() {

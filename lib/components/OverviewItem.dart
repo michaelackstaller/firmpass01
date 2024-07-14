@@ -37,7 +37,7 @@ class OverviewItem extends StatelessWidget {
             color: done
                 ? Color.fromARGB(255, 167, 255, 167)
                 : isUpcoming
-                ? Color.fromARGB(255, 255, 251, 204) // Gelb
+                ? Color.fromARGB(255, 255, 255, 255)
                 : Color.fromARGB(255, 247, 181, 181),
           ),
           width: 1000,

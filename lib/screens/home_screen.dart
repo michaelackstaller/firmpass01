@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int gruppenstunden = 0;
   int aktionen = 0;
   bool isLoading = true;
-  String id = "";
+  late String id;
 
   @override
   void initState() {
@@ -89,7 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   Stack(alignment: Alignment(0, 0), children: [
-                    QrImageView(
+                    isLoading
+                        ? Container(
+                      width: 250,
+                      height: 250,
+                      child: Center(child: CircularProgressIndicator()),
+                    )
+                        : QrImageView(
                       data: id,
                       size: 250,
                     ),

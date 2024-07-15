@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:firmpass/api/Api.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class ManualSearchPage extends StatefulWidget {
   const ManualSearchPage({super.key});
@@ -31,6 +29,8 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
 
       List<DropdownMenuEntry<String>> loadedEntries = [];
 
+      loadedEntries.add(const DropdownMenuEntry(value: "Gottesdienst", label :'Gottesdienst'));
+
       for (var item in firmstunden) {
         loadedEntries.add(DropdownMenuEntry(
           value: 'Firmstunde:${item['firmstundeId'].toString()}',
@@ -44,6 +44,8 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
           label: 'Firmsonntag: ${item['firmsonntagName']}',
         ));
       }
+
+      loadedEntries.add(const DropdownMenuEntry(value: "SozialeAktion", label :'Soziale Aktion'));
 
       setState(() {
         entries = loadedEntries;
@@ -122,29 +124,47 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 247, 212, 100),
+        backgroundColor: Colors.black,
         centerTitle: true,
-        title: const Text(
-          "F I R M P A S S",
-          style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black45),
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [Colors.green, Colors.orange],
+            tileMode: TileMode.mirror,
+          ).createShader(bounds),
+          child: const Text(
+            "F I R M P A S S",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,  // This color will be overridden by the ShaderMask
+            ),
+          ),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 255, 250, 200),
+      backgroundColor: const Color.fromARGB(254, 0, 0, 0),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: Container(
+          width: 250,
+          height: 250,
+          child: Center(
+            child: Image.asset("lib/images/fire-flame.gif"),
+          ),
+        ))
             : Column(
           children: [
             DropdownMenu<String>(
+              textStyle: TextStyle(color: Colors.white),
               expandedInsets: EdgeInsets.symmetric(horizontal: 0),
               dropdownMenuEntries: entries,
-              hintText: "Termin",
+              hintText: "Übersicht",
               inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(color: Colors.lime)),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: const BorderSide(color: Colors.white),
+                ),
+                hintStyle: TextStyle(color: Colors.white), // Hinweistestfarbe festlegen
               ),
               onSelected: (selectedEntry) {
                 setState(() {
@@ -156,18 +176,25 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
               height: 20,
             ),
             TextField(
+              style: TextStyle(color: Colors.white),
               autofocus: true,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  labelText: "Suche",
-                  focusColor: Colors.amber,
-                  suffixIcon: const Icon(Icons.search),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.lime, width: 2),
-                      borderRadius: BorderRadius.circular(20))),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                labelText: "Suche",
+                labelStyle: TextStyle(color: Colors.white),
+                focusColor: Colors.amber,
+                suffixIcon: const Icon(Icons.search),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               onChanged: (query) {
                 setState(() {
                   searchQuery = query;
@@ -180,7 +207,10 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                 itemBuilder: (context, index) {
                   var firmling = _searchFirmlinge(searchQuery)[index];
                   return ListTile(
-                    title: Text('${firmling['firstName']} ${firmling['lastName']}'),
+                    title: Text(
+                      '${firmling['firstName']} ${firmling['lastName']}',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onTap: () {
                       if (selectedEntry != null) {
                         final parts = selectedEntry!.split(':');
@@ -194,7 +224,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Please select an entry first.")),
+                          SnackBar(content: Text("Bitte wähle erst einen Termin aus!")),
                         );
                       }
                     },

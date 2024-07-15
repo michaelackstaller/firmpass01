@@ -39,62 +39,85 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 200),
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min, // Ensure the column takes minimal space
-              children: [
-                const SizedBox(height: 20),
-                /*SizedBox(
-                  width: 100,
-                  height: 100,
-                  child:
-                      Image.asset("lib/images/JugendLogo.png"), //TODO Schönes Foto!
-                ),*/
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Center( // Center the Column
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Logo
+                    Visibility(
+                      visible: !isKeyboardVisible,
+                      child: SizedBox(
+                        width: 250,
+                        height: 250,
+                        child: Image.asset("lib/images/JugendLogo.png"),
+                      ),
+                    ),
 
-                // welcome back, you've been missed!
-                Text(
-                  'Login',
-                  style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400),
+
+                    // welcome back, you've been missed!
+                    Text(
+                      'Willkommen!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // subtitle
+                    Text(
+                      'Logge dich ein um fortzufahren',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+
+                    const SizedBox(height: 40),
+
+                    // username textfield
+                    LoginTextField(
+                      controller: usernameController,
+                      hintText: 'NUTZERNAME',
+                      obscureText: false,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // password textfield
+                    LoginTextField(
+                      controller: passwordController,
+                      hintText: 'PASSWORT',
+                      obscureText: true,
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    // sign in button
+                    LoginButton(
+                      myButtonText: "Log In",
+                      onTapFunction: () async {
+                        signUserIn(context);
+                      },
+                    ),
+                  ],
                 ),
-
-                const SizedBox(height: 25),
-
-                // username textfield
-                LoginTextField(
-                  controller: usernameController,
-                  hintText: 'NUTZERNAME',
-                  obscureText: false,
-                ),
-
-                const SizedBox(height: 10),
-
-                // password textfield
-                LoginTextField(
-                  controller: passwordController,
-                  hintText: 'PASSWORT',
-                  obscureText: true,
-                ),
-
-                const SizedBox(height: 35),
-
-                // sign in button
-                LoginButton(
-                  myButtonText: "Login",
-                  onTapFunction: () async {
-                    signUserIn(context);
-
-                  },
-                ),
-              ],
+              ),
             ),
           ),
         ),

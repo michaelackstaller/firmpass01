@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OverviewScreen extends StatefulWidget {
+  const OverviewScreen({super.key});
+
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
 }
@@ -73,9 +75,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 200),
+      backgroundColor: Colors.black,
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child:
+      Container(
+        width: 250,
+        height: 250,
+        child: Center(
+          child: Image.asset("lib/images/fire-flame.gif"),
+        ),
+      )
+      )
           : ListView.builder(
         itemCount: _items.length,
         itemBuilder: (BuildContext context, int index) {

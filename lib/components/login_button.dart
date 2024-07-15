@@ -10,7 +10,7 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(100),
       splashColor: Colors.orange,
       highlightColor: Colors.orange,
 
@@ -18,10 +18,10 @@ class LoginButton extends StatelessWidget {
 
       child: Ink(
         padding: const EdgeInsets.all(10),
-        width: 150,
+        width: 250,
         decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(6),
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(100),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

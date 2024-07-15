@@ -18,7 +18,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return PopScope(
       canPop: true, //TODO change to false
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 200),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -30,7 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             const Text(
               "Deine Daten werden abgerufen,\nbitte warte einen Moment.",
               style: TextStyle(
-                color: Colors.orange,
+                color: Colors.white,
                 fontSize: 20,
               ),
               textAlign: TextAlign.center,
@@ -53,7 +53,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
   void initState(){
     super.initState();
-    Timer(Duration(seconds: 2),(){
+    Timer(Duration(seconds: 3),(){
       Navigator.pushNamed(context, "/pageNavigator");
     });//TODO Bedingung Loading done
   }

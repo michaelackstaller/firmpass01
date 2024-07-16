@@ -26,14 +26,22 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _api = Api();
+    _loadId();
     _loadData();
   }
+
+  Future<void> _loadId() async {
+    try {
+      id = await _api.getFirmlingId();
+    } catch (e) {
+      print("failed to load ID");
+    }
+}
 
   Future<void> _loadData() async {
     try {
       final firmstunden = await _api.getFirmstundenForFirmling();
       var firmsonntage = await _api.getFirmsonntageForFirmling();
-      id = await _api.getFirmlingId();
 
       setState(() {
         gruppenstunden = firmstunden.where((fs) => fs['completed'] == true).length;

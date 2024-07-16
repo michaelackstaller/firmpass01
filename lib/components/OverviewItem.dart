@@ -35,13 +35,13 @@ class OverviewItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: done
-                ? Color.fromARGB(255, 195, 255, 170)
+                ? Colors.orange.shade300
                 : isUpcoming
-                ? Color.fromARGB(255, 255, 255, 255)
+                ? Colors.grey.shade100
                 : Color.fromARGB(255, 255, 150, 149),
           ),
           width: 1000,
-          height: 120,
+          height: 80,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -54,7 +54,7 @@ class OverviewItem extends StatelessWidget {
                       Text(
                         topic,
                         style: const TextStyle(
-                          fontSize: 25,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Arial',
                         ),
@@ -64,11 +64,11 @@ class OverviewItem extends StatelessWidget {
                         children: [
                           Text(
                             description ?? '',
-                            style: const TextStyle(fontSize: 21),
+                            style: const TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
                           ),
                           Text(
-                            "Datum ${datum.day}.${datum.month}.${datum.year}",
-                            style: const TextStyle(fontSize: 20),
+                            "${datum.day}.${datum.month}.${datum.year}",
+                            style: const TextStyle(fontSize: 12),
                           ),
                         ],
                       ),
@@ -80,10 +80,31 @@ class OverviewItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     done
-                        ? const Icon(Icons.check, color: Colors.green, size: 40)
+                        ?Text(
+                        "🔥",
+                        style: TextStyle(fontSize: 40),
+                      )
                         : isUpcoming
-                        ? const Icon(Icons.timer, color: Colors.amber, size: 40)
-                        : const Icon(Icons.error, color: Colors.red, size: 40),
+                        ? ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Color.fromRGBO(100, 100, 100, 50),
+                        BlendMode.modulate,
+                      ),
+                      child: Text(
+                        "🔥",
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    )
+                        :ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Color.fromRGBO(255, 50, 50, 50),
+                        BlendMode.modulate,
+                      ),
+                      child: Text(
+                        "🔥",
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -91,7 +112,7 @@ class OverviewItem extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 5,
+          height: 1,
         ),
       ],
     );

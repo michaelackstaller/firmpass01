@@ -7,6 +7,7 @@ class Api {
 
   Api();
 
+
   Future<String> _getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('jwt_token') ?? '';
@@ -124,6 +125,19 @@ class Api {
   Future<List<Map<String, dynamic>>> getAllFirmlingeNames() async {
     final response = await http.get(
       Uri.parse('$baseUrl/api/firmlinge/names'),
+      headers: await _headers(),
+    );
+
+    if (response.statusCode == 200) {
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load Firmlinge names');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllFirmlings() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/firmlinge'),
       headers: await _headers(),
     );
 

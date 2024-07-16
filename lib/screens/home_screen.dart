@@ -17,7 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   late Api _api;
   int gottesdienste = 0;
   int gruppenstunden = 0;
-  int aktionen = 0;
+  int firmsonntageaamount = 0;
+  bool aktionen = false;
   bool isLoading = true;
   late String id;
 
@@ -30,16 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadData() async {
     try {
-      // Beispiel: Daten vom Backend laden
-      // Hier kannst du die entsprechenden API-Methoden aufrufen
-      // und die Anzahl der Gottesdienste, Gruppenstunden und Aktionen setzen
       final firmstunden = await _api.getFirmstundenForFirmling();
-      final firmsonntage = await _api.getFirmsonntageForFirmling();
+      var firmsonntage = await _api.getFirmsonntageForFirmling();
       id = await _api.getFirmlingId();
 
       setState(() {
-        gottesdienste = firmsonntage.where((fs) => fs['completed'] == true).length;
         gruppenstunden = firmstunden.where((fs) => fs['completed'] == true).length;
+        firmsonntageaamount= firmsonntage.where((fs) => fs['completed'] == true).length;
         isLoading = false;
       });
     } catch (e) {
@@ -57,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         exit(0); //TODO: Evtl. Probleme bei Apple: https://developer.apple.com/library/archive/qa/qa1561/_index.html
       },
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 200),
+        backgroundColor:  Colors.black,
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const Icon(Icons.arrow_downward_rounded),
                       const Text(
                         "Deine ID",
-                        style: TextStyle(fontSize: 30),
+                        style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
                       const Icon(Icons.arrow_downward_rounded),
                       IconButton(
@@ -93,9 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? Container(
                       width: 250,
                       height: 250,
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(
+                        child: Image.asset("lib/images/fire-flame.gif"),
+                      ),
                     )
                         : QrImageView(
+                      backgroundColor: Colors.white,
                       data: id,
                       size: 250,
                     ),
@@ -146,54 +147,70 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 padding: EdgeInsets.all(10),
-                width: 250,
+                width: 400,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color.fromARGB(255, 247, 212, 100),
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
                 child: Column(
                   children: [
                     const Text(
                       "Übersicht",
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Gottesdienste: $gottesdienste/8",
-                          style: TextStyle(fontSize: 20),
+                          "Gruppenstunden: ",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
                         ),
-                        Icon(
-                          Icons.check_circle_outline_rounded,
-                          size: 20,
-                        )
+                        Text("$gruppenstunden/12 🔥",
+                          style: TextStyle(fontSize: 25, color: Colors.white),)
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Gruppenstunden: $gruppenstunden/12",
-                          style: TextStyle(fontSize: 20),
+                          "Gottesdienste: ",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
                         ),
-                        Icon(
-                          Icons.check_circle_outline_rounded,
-                          size: 20,
-                        )
+                        Text("$gottesdienste/8 🔥",
+                          style: TextStyle(fontSize: 25, color: Colors.white),)
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Aktionen: $aktionen/4",
-                          style: TextStyle(fontSize: 20),
+                          "Firmsonntage:",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
                         ),
-                        Icon(
-                          Icons.check_circle_outline_rounded,
-                          size: 20,
-                        )
+                        Text(" $firmsonntageaamount/4 🔥",
+                          style: TextStyle(fontSize: 25, color: Colors.white),)
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Ausflug: ",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        ),
+                        Text("0/1 🔥",
+                          style: TextStyle(fontSize: 25, color: Colors.white),)
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Soziale Aktion: ",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        ),
+                        Text("0/1 🔥",
+                          style: TextStyle(fontSize: 25, color: Colors.white),)
                       ],
                     ),
                   ],

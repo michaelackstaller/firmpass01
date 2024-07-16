@@ -35,49 +35,64 @@ class OverviewItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: done
-                ? Color.fromARGB(255, 167, 255, 167)
+                ? Color.fromARGB(255, 195, 255, 170)
                 : isUpcoming
                 ? Color.fromARGB(255, 255, 255, 255)
-                : Color.fromARGB(255, 247, 181, 181),
+                : Color.fromARGB(255, 255, 150, 149),
           ),
           width: 1000,
-          height: 160,
-          child: Column(
-            children: [
-              Text(
-                topic,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Arial',
+          height: 120,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        topic,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Arial',
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            description ?? '',
+                            style: const TextStyle(fontSize: 21),
+                          ),
+                          Text(
+                            "Datum ${datum.day}.${datum.month}.${datum.year}",
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                child: Column(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "$description",
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    Text(
-                      "Am ${datum.day}.${datum.month}.${datum.year}",
-                      style: const TextStyle(fontSize: 20),
-                    ),
+                    done
+                        ? const Icon(Icons.check, color: Colors.green, size: 40)
+                        : isUpcoming
+                        ? const Icon(Icons.timer, color: Colors.amber, size: 40)
+                        : const Icon(Icons.error, color: Colors.red, size: 40),
                   ],
                 ),
-              ),
-              done
-                  ? const Icon(Icons.check, color: Colors.green, size: 40)
-                  : isUpcoming
-                  ? const Icon(Icons.timer, color: Colors.amber, size: 40)
-                  : const Icon(Icons.error, color: Colors.red, size: 40),
-            ],
+              ],
+            ),
           ),
         ),
         const SizedBox(
           height: 5,
-        )
+        ),
       ],
     );
   }

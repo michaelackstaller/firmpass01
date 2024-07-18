@@ -33,6 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadId() async {
     try {
       id = await _api.getFirmlingId();
+      isLoading = false;
+      setState(() {
+      });
     } catch (e) {
       print("failed to load ID");
     }
@@ -42,16 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final firmstunden = await _api.getFirmstundenForFirmling();
       var firmsonntage = await _api.getFirmsonntageForFirmling();
-
       setState(() {
         gruppenstunden = firmstunden.where((fs) => fs['completed'] == true).length;
         firmsonntageaamount= firmsonntage.where((fs) => fs['completed'] == true).length;
-        isLoading = false;
       });
     } catch (e) {
       print('Failed to load data: $e');
       setState(() {
-        isLoading = false;
       });
     }
   }

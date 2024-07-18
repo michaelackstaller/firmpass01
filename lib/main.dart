@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       
       title: 'Firmpass',
-      home: LoginPage(),
+      home: LoadingScreen(),
 
       routes: {
         '/login_screen': (context) => LoginPage(),

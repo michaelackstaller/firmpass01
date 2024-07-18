@@ -19,12 +19,9 @@ class LoginPage extends StatelessWidget {
     try {
       await api.login(username, password);
       bool isLoggedIn = await api.isUserLoggedIn();
-
       if (isLoggedIn) {
-        // Navigate to the home screen or dashboard after successful login
-        Navigator.pushNamed(context, "/loading_screen");
+        Navigator.pushNamed(context, "/pageNavigator");
       } else {
-        // Show an error message if login fails
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login failed. Please try again.')),
         );
@@ -39,8 +36,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
-
+    final bool isKeyboardVisible =
+        MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -48,7 +45,7 @@ class LoginPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Center( // Center the Column
+              child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,9 +60,6 @@ class LoginPage extends StatelessWidget {
                         child: Image.asset("lib/images/JugendLogo.png"),
                       ),
                     ),
-
-
-                    // welcome back, you've been missed!
                     Text(
                       'Willkommen!',
                       textAlign: TextAlign.center,

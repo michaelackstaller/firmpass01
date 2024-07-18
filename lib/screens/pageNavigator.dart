@@ -1,8 +1,10 @@
-import 'package:firmpass/screens/Overview_screen.dart';
+
 import 'package:firmpass/screens/home_screen.dart';
 import 'package:firmpass/screens/qr_scanner_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'Overview_screen.dart';
+import '../api/Api.dart';
 
 class PageNavigator extends StatefulWidget {
   const PageNavigator({super.key});
@@ -14,9 +16,22 @@ class PageNavigator extends StatefulWidget {
 class _PageNavigatorState extends State<PageNavigator> {
   int currentIndex = 0;
   final PageController pageController = PageController(initialPage: 0);
+  final Api api = Api();
 
   @override
   Widget build(BuildContext context) {
+
+    final List<Widget> filteredPages = [
+      const HomeScreen(),
+      const OverviewScreen(),
+      if(api.hasRole('ROLE_MOD')) const BarcodeScannerSimple()
+    ];
+    final List<GButton> filteredIcons = [
+      const GButton(icon: Icons.home),
+      const GButton(icon: Icons.check_circle_outline),
+      if(api.hasRole('ROLE_MOD')) const GButton(icon: Icons.qr_code_scanner)
+    ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -32,7 +47,8 @@ class _PageNavigatorState extends State<PageNavigator> {
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.white,  // This color will be overridden by the ShaderMask
+              color: Colors
+                  .white, // This color will be overridden by the ShaderMask
             ),
           ),
         ),
@@ -66,17 +82,7 @@ class _PageNavigatorState extends State<PageNavigator> {
                 });
                 pageController.jumpToPage(index);
               },
-              tabs: const [
-                GButton(
-                  icon: Icons.home,
-                ),
-                GButton(
-                  icon: Icons.check_circle_outline,
-                ),
-                GButton(
-                  icon: Icons.qr_code_scanner,
-                ),
-              ],
+              tabs: filteredIcons,
             ),
           ),
         ),
@@ -88,11 +94,7 @@ class _PageNavigatorState extends State<PageNavigator> {
             currentIndex = index;
           });
         },
-        children: const [
-          HomeScreen(),
-          OverviewScreen(),
-          BarcodeScannerSimple(),
-        ],
+        children: filteredPages,
       ),
     );
   }

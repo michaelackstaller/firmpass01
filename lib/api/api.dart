@@ -7,6 +7,7 @@ class Api {
 
   Api();
 
+  static List<Map<String, dynamic>>? _cachedRoles;
 
   Future<String> _getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -37,12 +38,12 @@ class Api {
   }
 
   Future<void> login(String username, String password) async {
+    print("Debug Login^1");
     final response = await http.post(
       Uri.parse('$baseUrl/auth/login'),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode({'username': username, 'password': password}),
     );
-
     if (response.statusCode == 200) {
       String token = response.body;
       await _saveToken(token);
@@ -59,7 +60,7 @@ class Api {
     );
 
     if (response.statusCode == 200) {
-      _saveFirmlingId(response.body);
+      await _saveFirmlingId(response.body);
     } else {
       print('Failed to fetch Firmling ID, status code: ${response.statusCode}');
       throw Exception('Failed to fetch Firmling ID');
@@ -68,19 +69,12 @@ class Api {
 
   Future<bool> isUserLoggedIn() async {
     String token = await _getToken();
-    if (token.isEmpty) return false;
-
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/validateToken'),
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode({'token': token}),
-    );
-
-    if (response.statusCode == 200) {
-      return true;
-    } else {
+    if (token.isEmpty) {
       return false;
     }
+    final response = await http.get(Uri.parse('$baseUrl/auth/user'),
+        headers: await _headers());
+    return response.statusCode == 200;
   }
 
   Future<void> deleteFirmUser(String id) async {
@@ -118,7 +112,7 @@ class Api {
     if (response.statusCode == 200) {
       return List<Map<String, dynamic>>.from(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load Firmstunden for Firmling');
+      throw Exception('Failed to load Firmsonntage for Firmling');
     }
   }
 
@@ -144,24 +138,24 @@ class Api {
     if (response.statusCode == 200) {
       return List<Map<String, dynamic>>.from(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load Firmlinge names');
+      throw Exception('Failed to load Firmlinge');
     }
   }
 
-  Future<void> markFirmstundeAsCompleted(String firmlingId, String firmstundeId) async {
-    print('$baseUrl/api/firmstunde/complete/$firmlingId/$firmstundeId');
+  Future<void> markFirmstundeAsCompleted(
+      String firmlingId, String firmstundeId) async {
     final response = await http.put(
       Uri.parse('$baseUrl/api/firmstunde/complete/$firmlingId/$firmstundeId'),
       headers: await _headers(),
     );
 
     if (response.statusCode != 200) {
-      print(response.statusCode);
       throw Exception('Failed to mark Firmstunde as completed');
     }
   }
 
-  Future<void> markFirmsonntagAsCompleted(String firmlingId, String firmsonntagId) async {
+  Future<void> markFirmsonntagAsCompleted(
+      String firmlingId, String firmsonntagId) async {
     final response = await http.put(
       Uri.parse('$baseUrl/api/firmsonntag/complete/$firmlingId/$firmsonntagId'),
       headers: await _headers(),
@@ -171,4 +165,40 @@ class Api {
       throw Exception('Failed to mark Firmsonntag as completed');
     }
   }
+
+  Future<bool> loadRoles() async {
+    if (_cachedRoles != null) {
+      // If roles are already cached, no need to load again
+      return true;
+    }
+
+    // Check if the user is logged in before loading roles
+    bool isLoggedIn = await isUserLoggedIn();
+    if (!isLoggedIn) {
+      return false;
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/auth/roles'),
+      headers: await _headers(),
+    );
+    if (response.statusCode == 200) {
+      print("200");
+      _cachedRoles = List<Map<String, dynamic>>.from(jsonDecode(response.body));
+      return true;
+    } else {
+      throw Exception('Failed to load Roles');
+    }
+  }
+
+  bool hasRole(String roleName) {
+    print("hasRoleCheck");
+    final roles = _cachedRoles;
+    if (roles == null) {
+      print("null :D");
+      return false;
+    }
+    return roles.any((role) => role['roleName'] == roleName);
+  }
 }
+

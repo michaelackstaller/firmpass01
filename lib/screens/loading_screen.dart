@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-import '../api/Api.dart';
+import '../api/api.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});

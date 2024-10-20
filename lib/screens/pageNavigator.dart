@@ -4,7 +4,7 @@ import 'package:firmpass/screens/qr_scanner_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'Overview_screen.dart';
-import '../api/Api.dart';
+import '../api/api.dart';
 
 class PageNavigator extends StatefulWidget {
   const PageNavigator({super.key});
@@ -47,8 +47,7 @@ class _PageNavigatorState extends State<PageNavigator> {
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors
-                  .white, // This color will be overridden by the ShaderMask
+              color: Colors.white, // This color will be overridden by the ShaderMask
             ),
           ),
         ),

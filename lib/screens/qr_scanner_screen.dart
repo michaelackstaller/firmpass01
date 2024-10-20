@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:firmpass/api/Api.dart'; // Ensure the import is correct
+import 'package:firmpass/api/api.dart'; // Ensure the import is correct
 
 class BarcodeScannerSimple extends StatefulWidget {
   const BarcodeScannerSimple({super.key});

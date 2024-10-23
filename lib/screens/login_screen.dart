@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
                         child: Image.asset("lib/images/JugendLogo.png"),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Willkommen!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -73,7 +73,7 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 10),
 
                     // subtitle
-                    Text(
+                    const Text(
                       'Logge dich ein um fortzufahren',
                       textAlign: TextAlign.center,
                       style: TextStyle(

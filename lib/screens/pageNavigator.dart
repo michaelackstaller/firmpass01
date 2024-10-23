@@ -38,7 +38,7 @@ class _PageNavigatorState extends State<PageNavigator> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [Colors.green, Colors.orange],
             tileMode: TileMode.mirror,
           ).createShader(bounds),

@@ -84,17 +84,17 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Confirm Completion"),
+          title: const Text("Confirm Completion"),
           content: Text("Do you want to mark this entry as completed for ${firmling['firstName']} ${firmling['lastName']}?"),
           actions: <Widget>[
             TextButton(
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("Confirm"),
+              child: const Text("Confirm"),
               onPressed: () async {
                 Navigator.of(context).pop();
                 try {
@@ -105,7 +105,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                     await Api().markFirmsonntagAsCompleted(firmling['id'].toString(), entryId);
                   }
                   scaffoldMessengerContext.showSnackBar(
-                    SnackBar(content: Text("Marked as completed!")),
+                    const SnackBar(content: Text("Marked as completed!")),
                   );
                 } catch (e) {
                   scaffoldMessengerContext.showSnackBar(
@@ -127,7 +127,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
         backgroundColor: Colors.black,
         centerTitle: true,
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [Colors.green, Colors.orange],
             tileMode: TileMode.mirror,
           ).createShader(bounds),
@@ -145,7 +145,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: isLoading
-            ? Center(child: Container(
+            ? Center(child: SizedBox(
           width: 250,
           height: 250,
           child: Center(
@@ -155,8 +155,8 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
             : Column(
           children: [
             DropdownMenu<String>(
-              textStyle: TextStyle(color: Colors.white),
-              expandedInsets: EdgeInsets.symmetric(horizontal: 0),
+              textStyle: const TextStyle(color: Colors.white),
+              expandedInsets: const EdgeInsets.symmetric(horizontal: 0),
               dropdownMenuEntries: entries,
               hintText: "Übersicht",
               inputDecorationTheme: InputDecorationTheme(
@@ -164,7 +164,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                   borderRadius: BorderRadius.circular(20),
                   borderSide: const BorderSide(color: Colors.white),
                 ),
-                hintStyle: TextStyle(color: Colors.white), // Hinweistestfarbe festlegen
+                hintStyle: const TextStyle(color: Colors.white), // Hinweistestfarbe festlegen
               ),
               onSelected: (selectedEntry) {
                 setState(() {
@@ -176,7 +176,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
               height: 20,
             ),
             TextField(
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               autofocus: true,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
@@ -184,7 +184,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 labelText: "Suche",
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: const TextStyle(color: Colors.white),
                 focusColor: Colors.amber,
                 suffixIcon: const Icon(Icons.search),
                 focusedBorder: OutlineInputBorder(
@@ -209,7 +209,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                   return ListTile(
                     title: Text(
                       '${firmling['firstName']} ${firmling['lastName']}',
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     onTap: () {
                       if (selectedEntry != null) {
@@ -224,7 +224,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Bitte wähle erst einen Termin aus!")),
+                          const SnackBar(content: Text("Bitte wähle erst einen Termin aus!")),
                         );
                       }
                     },

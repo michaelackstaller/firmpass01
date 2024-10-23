@@ -23,15 +23,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       
       title: 'Firmpass',
-      home: LoadingScreen(),
+      home: const LoadingScreen(),
 
       routes: {
         '/login_screen': (context) => LoginPage(),
-        '/home_screen': (context) => HomeScreen(),
-        '/loading_screen': (context) => LoadingScreen(),
-        '/qr_scanner_screen':(context) => BarcodeScannerSimple(),
-        '/pageNavigator':(context) => PageNavigator(),
-        '/manualSearch_screen':(context) => ManualSearchPage(),
+        '/home_screen': (context) => const HomeScreen(),
+        '/loading_screen': (context) => const LoadingScreen(),
+        '/qr_scanner_screen':(context) => const BarcodeScannerSimple(),
+        '/pageNavigator':(context) => const PageNavigator(),
+        '/manualSearch_screen':(context) => const ManualSearchPage(),
       },
     );
   }

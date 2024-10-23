@@ -80,7 +80,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       backgroundColor: Colors.black,
       body: _isLoading
           ? Center(child:
-      Container(
+      SizedBox(
         width: 250,
         height: 250,
         child: Center(

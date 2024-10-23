@@ -54,7 +54,7 @@ class _PageNavigatorState extends State<PageNavigator> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.black,
+          //color: Colors.black,
           boxShadow: [
             BoxShadow(
               blurRadius: 20,

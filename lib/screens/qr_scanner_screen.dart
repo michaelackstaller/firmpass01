@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:firmpass/api/api.dart'; // Ensure the import is correct
@@ -76,7 +75,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
       return const Text(
         'Bisher niemand',
         overflow: TextOverflow.fade,
-        style: TextStyle(color: Colors.white),
+        //style: TextStyle(color: Colors.white),
       );
     }
     String? displayValueString = value.displayValue;
@@ -95,7 +94,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     return Text(
       names.join("\n"),
       overflow: TextOverflow.fade,
-      style: const TextStyle(color: Colors.white),
+      //style: const TextStyle(color: Colors.white),
     );
   }
 
@@ -140,7 +139,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
         }
       }
       scaffoldMessengerContext.showSnackBar(
-        SnackBar(content: Text("Marked as completed!")),
+        const SnackBar(content: Text("Marked as completed!")),
       );
       confirm();
     } catch (e) {
@@ -166,13 +165,13 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: Text('ID Scanner', style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.black,
+        title: const Text('ID Scanner', style: TextStyle(color: Colors.white),),
+        //backgroundColor: Colors.black,
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: resetScanner,
             color: Colors.red,
           ),
@@ -189,11 +188,11 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                 if (selectedEntry == null)
                   Center(
                     child: Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       color: Colors.black.withOpacity(0.5),
-                      child: Text(
+                      child: const Text(
                         "Bitte wähle einen Termin aus!",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        //style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),
@@ -201,9 +200,9 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             ),
           ),
           AnimatedContainer(
+            decoration: const BoxDecoration(color: const Color.fromARGB(255, 40, 75, 0), borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
             duration: Durations.short1,
             alignment: Alignment.bottomCenter,
-            color: Colors.orange.withOpacity(0.4),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -213,14 +212,14 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                   value: selectedEntry,
                   hint: const Text(
                     "Wähle einen Termin",
-                    style: TextStyle(color: Colors.white),
+                    //style: TextStyle(color: Colors.white),
                   ),
                   items: entries
                       .map((entry) => DropdownMenuItem(
                     value: entry.value,
                     child: Text(
                       entry.label,
-                      style: TextStyle(color: Colors.white),
+                      //tyle: const TextStyle(color: Colors.white),
                     ),
                   ))
                       .toList(),
@@ -234,14 +233,14 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                 Center(
                   child: Text(
                     "Erkannt: $checkCounter",
-                    style: TextStyle(color: Colors.white),
+                    //style: const TextStyle(color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Center(child: _buildBarcode(_barcode)),
                 const SizedBox(height: 20),
                 if (isCheckingIn)
-                  Center(child: CircularProgressIndicator()),
+                  const Center(child: CircularProgressIndicator()),
                 if (!isCheckingIn)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -286,7 +285,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                             _confirmMarkAsCompleted(context, entryId, isFirmstunde);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Bitte wähle erst einen Termin aus!")),
+                              const SnackBar(content: Text("Bitte wähle erst einen Termin aus!")),
                             );
                           }
                         }

@@ -1,9 +1,6 @@
 import 'package:firmpass/components/OverviewItem.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api.dart';
 
@@ -77,10 +74,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black,
       body: _isLoading
           ? Center(child:
-      Container(
+      SizedBox(
         width: 250,
         height: 250,
         child: Center(

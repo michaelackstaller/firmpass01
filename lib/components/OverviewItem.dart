@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 // ignore: must_be_immutable
 class OverviewItem extends StatelessWidget {
@@ -31,14 +28,14 @@ class OverviewItem extends StatelessWidget {
           height: 10,
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: done
                 ? Colors.orange.shade300
                 : isUpcoming
                 ? Colors.grey.shade100
-                : Color.fromARGB(255, 255, 150, 149),
+                : const Color.fromARGB(255, 255, 150, 149),
           ),
           width: 1000,
           height: 80,
@@ -80,12 +77,12 @@ class OverviewItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     done
-                        ?Text(
+                        ?const Text(
                         "🔥",
                         style: TextStyle(fontSize: 40),
                       )
                         : isUpcoming
-                        ? ColorFiltered(
+                        ? const ColorFiltered(
                       colorFilter: ColorFilter.mode(
                         Color.fromRGBO(100, 100, 100, 50),
                         BlendMode.modulate,
@@ -95,7 +92,7 @@ class OverviewItem extends StatelessWidget {
                         style: TextStyle(fontSize: 40),
                       ),
                     )
-                        :ColorFiltered(
+                        :const ColorFiltered(
                       colorFilter: ColorFilter.mode(
                         Color.fromRGBO(255, 50, 50, 50),
                         BlendMode.modulate,

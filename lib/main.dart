@@ -23,15 +23,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       
       title: 'Firmpass',
-      home: LoadingScreen(),
+      home: const LoadingScreen(),
+      theme: ThemeData(colorScheme: const ColorScheme(brightness: Brightness.dark, primary: Colors.black, onPrimary: Colors.white, secondary: Color.fromARGB(255, 40, 75, 0), onSecondary: Colors.white, error: Colors.red, onError: Colors.black, surface: Colors.black , onSurface: Colors.white)),
 
       routes: {
         '/login_screen': (context) => LoginPage(),
-        '/home_screen': (context) => HomeScreen(),
-        '/loading_screen': (context) => LoadingScreen(),
-        '/qr_scanner_screen':(context) => BarcodeScannerSimple(),
-        '/pageNavigator':(context) => PageNavigator(),
-        '/manualSearch_screen':(context) => ManualSearchPage(),
+        '/home_screen': (context) => const HomeScreen(),
+        '/loading_screen': (context) => const LoadingScreen(),
+        '/qr_scanner_screen':(context) => const BarcodeScannerSimple(),
+        '/pageNavigator':(context) => const PageNavigator(),
+        '/manualSearch_screen':(context) => const ManualSearchPage(),
       },
     );
   }

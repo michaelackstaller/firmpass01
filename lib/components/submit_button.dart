@@ -17,7 +17,7 @@ class Submit_Button extends StatelessWidget {
       onTap: onTapFunction,
 
       child: Ink(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
         width: 150,
         decoration: BoxDecoration(
           color: Colors.lime,

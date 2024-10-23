@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         exit(0); //TODO: Evtl. Probleme bei Apple: https://developer.apple.com/library/archive/qa/qa1561/_index.html
       },
       child: Scaffold(
-        backgroundColor:  Colors.black,
+        //backgroundColor:  Colors.black,
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const Icon(Icons.arrow_downward_rounded),
                       const Text(
                         "Deine ID",
-                        style: TextStyle(fontSize: 30, color: Colors.white),
+                        style: TextStyle(fontSize: 30, /*color: Colors.white*/),
                       ),
                       const Icon(Icons.arrow_downward_rounded),
                       IconButton(
@@ -88,15 +88,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                         icon: !help
-                            ? const Icon(Icons.help_outline_rounded, color: Colors.grey)
-                            : const Icon(Icons.check_circle_outline_rounded, color: Colors.grey),
+                            ? const Icon(Icons.help_outline_rounded, /*color: Colors.grey*/)
+                            : const Icon(Icons.check_circle_outline_rounded, /*color: Colors.grey*/),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Stack(alignment: Alignment(0, 0), children: [
+                  Stack(alignment: const Alignment(0, 0), children: [
                     isLoading
-                        ? Container(
+                        ? SizedBox(
                       width: 250,
                       height: 250,
                       child: Center(
@@ -104,7 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     )
                         : QrImageView(
-                      backgroundColor: Colors.white,
+                          dataModuleStyle: const QrDataModuleStyle(color: Colors.white, dataModuleShape: QrDataModuleShape.square),
+                      eyeStyle: const QrEyeStyle(color: Colors.white, eyeShape: QrEyeShape.square),
                       data: id,
                       size: 250,
                     ),
@@ -119,21 +120,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Container(
                                 width: 100,
                                 height: 130,
-                                color: Color.fromARGB(255, 210, 253, 20),
+                                color: const Color.fromARGB(255, 40, 75, 0),
                               ),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Color.fromARGB(255, 210, 253, 20),
+                              color:const Color.fromARGB(255, 40, 75, 0),
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             child: Column(
                               children: [
                                 const Text(
                                   "Das ist deine persönliche ID mit der wir dich identifizieren können. Komm am Ende unserer gemeinsammen Aktionen zu einem der Begleiter und zeig im diese, damit wird deine Teilnahme bestätigt:)",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 19),
                                 ),
                                 Submit_Button(
                                   myButtonText: "Verstanden",
@@ -154,11 +155,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 width: 400,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  //color: Color.fromARGB(255, 0, 0, 0),
                 ),
                 child: Column(
                   children: [
@@ -169,34 +170,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Gruppenstunden: ",
                           style: TextStyle(fontSize: 25, color: Colors.white),
                         ),
                         Text("$gruppenstunden/12 🔥",
-                          style: TextStyle(fontSize: 25, color: Colors.white),)
+                          style: const TextStyle(fontSize: 25, color: Colors.white),)
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Gottesdienste: ",
                           style: TextStyle(fontSize: 25, color: Colors.white),
                         ),
                         Text("$gottesdienste/8 🔥",
-                          style: TextStyle(fontSize: 25, color: Colors.white),)
+                          style: const TextStyle(fontSize: 25, color: Colors.white),)
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Firmsonntage:",
                           style: TextStyle(fontSize: 25, color: Colors.white),
                         ),
                         Text(" $firmsonntageaamount/4 🔥",
-                          style: TextStyle(fontSize: 25, color: Colors.white),)
+                          style: const TextStyle(fontSize: 25, color: Colors.white),)
                       ],
                     ),
                     const Row(

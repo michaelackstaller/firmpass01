@@ -85,28 +85,50 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 40),
 
                     // username textfield
-                    
+
                     AutofillGroup(
-                      child: 
-                      Column(
-                        children:[
-                        LoginTextField(
-                        controller: usernameController,
-                        hintText: 'NUTZERNAME',
-                        obscureText: false,
-                      ),
-                    
+                      child: Column(children: [
+                        TextField(
+                          controller: usernameController,
+                          obscureText: false,
+                          autocorrect: false,
+                          autofillHints: [AutofillHints.username],
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            hintText: 'NUTZERNAME',
+                            hintStyle: const TextStyle(color: Colors.white60),
+                          ),
+                        ),
 
-                    const SizedBox(height: 20),
+                        const SizedBox(height: 20),
 
-                    // password textfield
-                    LoginTextField(
-                      controller: passwordController,
-                      hintText: 'PASSWORT',
-                      obscureText: true,
-                    ),
-                        ]
-                    ),
+                        // password textfield
+                        TextField(
+                          controller: passwordController,
+                          obscureText: true,
+                          autocorrect: false,
+                          autofillHints: [AutofillHints.password],
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            hintText: 'PASSWORT',
+                            hintStyle: const TextStyle(color: Colors.white60),
+                          ),
+                        ),
+                      ]),
                     ),
 
                     const SizedBox(height: 30),

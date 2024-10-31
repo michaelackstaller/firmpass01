@@ -4,12 +4,16 @@ class LoginTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final bool nameHint;
+  final bool passordHint;
 
   const LoginTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    required this.nameHint,
+    required this.passordHint,
   });
 
   @override
@@ -24,6 +28,8 @@ class LoginTextField extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
             controller: controller,
             obscureText: obscureText,
+            autocorrect: false,
+            autofillHints: nameHint ? [AutofillHints.name] : passordHint ? [AutofillHints.password] : [AutofillHints.username],
             decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade300),

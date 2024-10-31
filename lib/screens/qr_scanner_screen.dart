@@ -166,7 +166,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text('ID Scanner', style: TextStyle(color: Colors.white),),
         //backgroundColor: Colors.black,
         actions: [
@@ -176,7 +176,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             color: Colors.red,
           ),
         ],
-      ),
+      ),*/
       body: Column(
         children: [
           Expanded(
@@ -200,7 +200,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             ),
           ),
           AnimatedContainer(
-            decoration: const BoxDecoration(color: const Color.fromARGB(255, 40, 75, 0), borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+            decoration: const BoxDecoration(color: Color.fromARGB(255, 40, 75, 0), borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
             duration: Durations.short1,
             alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -254,7 +254,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                       FloatingActionButton(
                         heroTag: 'searchButton',
                         backgroundColor: Colors.amber,
-                        onPressed: () => Navigator.pushNamed(context, '/manualSearch_screen'),
+                        onPressed: () => Navigator.pushNamed(context, '/login_screen'),
                         child: const Icon(Icons.search_outlined),
                       ),
                       FloatingActionButton.extended(

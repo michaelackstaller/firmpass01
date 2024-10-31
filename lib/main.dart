@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       
       title: 'Firmpass',
       home: const LoadingScreen(),
-      theme: ThemeData(colorScheme: const ColorScheme(brightness: Brightness.dark, primary: Colors.black, onPrimary: Colors.white, secondary: Color.fromARGB(255, 40, 75, 0), onSecondary: Colors.white, error: Colors.red, onError: Colors.black, surface: Colors.black , onSurface: Colors.white)),
+      theme: ThemeData(colorScheme: const ColorScheme(brightness: Brightness.dark, primary: Colors.white, onPrimary: Colors.black, secondary: Color.fromARGB(255, 40, 75, 0), onSecondary: Colors.white, error: Colors.red, onError: Colors.black, surface: Colors.black , onSurface: Colors.white)),
 
       routes: {
         '/login_screen': (context) => LoginPage(),

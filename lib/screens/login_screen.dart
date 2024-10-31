@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firmpass/components/login_textField.dart';
 import 'package:firmpass/components/login_button.dart';
 import 'package:firmpass/api/api.dart';
 
@@ -92,7 +91,7 @@ class LoginPage extends StatelessWidget {
                           controller: usernameController,
                           obscureText: false,
                           autocorrect: false,
-                          autofillHints: [AutofillHints.username],
+                          autofillHints: const [AutofillHints.username],
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide:
@@ -114,7 +113,7 @@ class LoginPage extends StatelessWidget {
                           controller: passwordController,
                           obscureText: true,
                           autocorrect: false,
-                          autofillHints: [AutofillHints.password],
+                          autofillHints: const [AutofillHints.password],
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide:

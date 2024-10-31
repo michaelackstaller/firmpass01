@@ -18,7 +18,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
   List<DropdownMenuEntry<String>> entries = [];
   List<String> names = [];
   bool isLoading = true;
-  String? selectedEntry;
+  String? selectedEntry = 'Gottesdienst';
   bool isCheckingIn = false;
 
   @override
@@ -30,10 +30,13 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
 
   Future<void> _loadEntries() async {
     try {
-      List<Map<String, dynamic>> firmstunden = await Api().getFirmstundenForFirmling();
-      List<Map<String, dynamic>> firmsonntage = await Api().getFirmsonntageForFirmling();
+      List<Map<String, dynamic>> firmstunden =
+          await Api().getFirmstundenForFirmling();
+      List<Map<String, dynamic>> firmsonntage =
+          await Api().getFirmsonntageForFirmling();
       List<DropdownMenuEntry<String>> loadedEntries = [];
-      loadedEntries.add(const DropdownMenuEntry(value: "Gottesdienst", label: 'Gottesdienst'));
+      loadedEntries.add(const DropdownMenuEntry(
+          value: "Gottesdienst", label: 'Gottesdienst'));
       for (var item in firmstunden) {
         loadedEntries.add(DropdownMenuEntry(
           value: 'Firmstunde:${item['firmstundeId'].toString()}',
@@ -46,7 +49,8 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
           label: 'Firmsonntag: ${item['firmsonntagName']}',
         ));
       }
-      loadedEntries.add(const DropdownMenuEntry(value: "SozialeAktion", label: 'Soziale Aktion'));
+      loadedEntries.add(const DropdownMenuEntry(
+          value: "SozialeAktion", label: 'Soziale Aktion'));
       setState(() {
         entries = loadedEntries;
         isLoading = false;
@@ -61,7 +65,8 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
 
   Future<void> _loadFirmlinge() async {
     try {
-      List<Map<String, dynamic>> loadedFirmlinge = await Api().getAllFirmlingeNames();
+      List<Map<String, dynamic>> loadedFirmlinge =
+          await Api().getAllFirmlingeNames();
       setState(() {
         firmlinge = loadedFirmlinge;
       });
@@ -124,7 +129,8 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     }
   }
 
-  Future<void> _confirmMarkAsCompleted(BuildContext context, String entryId, bool isFirmstunde) async {
+  Future<void> _confirmMarkAsCompleted(
+      BuildContext context, String entryId, bool isFirmstunde) async {
     final scaffoldMessengerContext = ScaffoldMessenger.of(context);
     setState(() {
       isCheckingIn = true;
@@ -139,7 +145,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
         }
       }
       scaffoldMessengerContext.showSnackBar(
-        const SnackBar(content: Text("Marked as completed!")),
+        const SnackBar(content: Text("Teilnahme bestätigt")),
       );
       confirm();
     } catch (e) {
@@ -200,7 +206,11 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             ),
           ),
           AnimatedContainer(
-            decoration: const BoxDecoration(color: Color.fromARGB(255, 40, 75, 0), borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+            decoration: const BoxDecoration(
+                /*color: Color.fromARGB(255, 40, 75, 0),*/ borderRadius:
+                    BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
             duration: Durations.short1,
             alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -208,7 +218,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 DropdownButton<String>(
-                  dropdownColor: Colors.grey,
+                  dropdownColor: const Color.fromARGB(255, 53, 53, 53),
                   value: selectedEntry,
                   hint: const Text(
                     "Wähle einen Termin",
@@ -216,12 +226,12 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                   ),
                   items: entries
                       .map((entry) => DropdownMenuItem(
-                    value: entry.value,
-                    child: Text(
-                      entry.label,
-                      //tyle: const TextStyle(color: Colors.white),
-                    ),
-                  ))
+                            value: entry.value,
+                            child: Text(
+                              entry.label,
+                              //tyle: const TextStyle(color: Colors.white),
+                            ),
+                          ))
                       .toList(),
                   onChanged: (value) {
                     setState(() {
@@ -254,12 +264,14 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                       FloatingActionButton(
                         heroTag: 'searchButton',
                         backgroundColor: Colors.amber,
-                        onPressed: () => Navigator.pushNamed(context, '/login_screen'),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, '/manualSearch_screen'),
                         child: const Icon(Icons.search_outlined),
                       ),
                       FloatingActionButton.extended(
                         heroTag: 'checkButton',
-                        extendedPadding: EdgeInsets.all(checkCounter > 0 ? 15 : 5),
+                        extendedPadding:
+                            EdgeInsets.all(checkCounter > 0 ? 15 : 5),
                         label: Text(
                           checkCounter > 0 ? "check-in" : "erst scannen",
                           style: TextStyle(
@@ -275,20 +287,24 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                               ? Colors.green
                               : const Color.fromARGB(255, 83, 83, 83),
                         ),
-                        backgroundColor: checkCounter > 0 ? Colors.amber : Colors.grey,
+                        backgroundColor:
+                            checkCounter > 0 ? Colors.amber : Colors.grey,
                         onPressed: checkCounter > 0
                             ? () {
-                          if (selectedEntry != null) {
-                            final parts = selectedEntry!.split(':');
-                            bool isFirmstunde = parts[0] == 'Firmstunde';
-                            String entryId = parts[1];
-                            _confirmMarkAsCompleted(context, entryId, isFirmstunde);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Bitte wähle erst einen Termin aus!")),
-                            );
-                          }
-                        }
+                                if (selectedEntry != null) {
+                                  final parts = selectedEntry!.split(':');
+                                  bool isFirmstunde = parts[0] == 'Firmstunde';
+                                  String entryId = parts[1];
+                                  _confirmMarkAsCompleted(
+                                      context, entryId, isFirmstunde);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            "Bitte wähle erst einen Termin aus!")),
+                                  );
+                                }
+                              }
                             : null,
                       ),
                     ],

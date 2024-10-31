@@ -254,7 +254,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                       FloatingActionButton(
                         heroTag: 'searchButton',
                         backgroundColor: Colors.amber,
-                        onPressed: () => Navigator.pushNamed(context, '/login_page'),//'/manualSearch_screen'
+                        onPressed: () => Navigator.pushNamed(context, '/manualSearch_screen'),
                         child: const Icon(Icons.search_outlined),
                       ),
                       FloatingActionButton.extended(

@@ -60,7 +60,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return WillPopScope(
       onWillPop: () async => false, // Changed PopScope to WillPopScope and set canPop to false
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        //backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -73,7 +73,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             const Text(
               "Deine Daten werden abgerufen,\nbitte warte einen Moment.",
               style: TextStyle(
-                color: Colors.white,
+                //color: Colors.white,
                 fontSize: 20,
               ),
               textAlign: TextAlign.center,

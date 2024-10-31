@@ -75,7 +75,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
       return const Text(
         'Bisher niemand',
         overflow: TextOverflow.fade,
-        style: TextStyle(color: Colors.white),
+        //style: TextStyle(color: Colors.white),
       );
     }
     String? displayValueString = value.displayValue;
@@ -94,7 +94,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
     return Text(
       names.join("\n"),
       overflow: TextOverflow.fade,
-      style: const TextStyle(color: Colors.white),
+      //style: const TextStyle(color: Colors.white),
     );
   }
 
@@ -165,10 +165,10 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('ID Scanner', style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -192,7 +192,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                       color: Colors.black.withOpacity(0.5),
                       child: const Text(
                         "Bitte wähle einen Termin aus!",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        //style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),
@@ -200,9 +200,9 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
             ),
           ),
           AnimatedContainer(
+            decoration: const BoxDecoration(color: const Color.fromARGB(255, 40, 75, 0), borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
             duration: Durations.short1,
             alignment: Alignment.bottomCenter,
-            color: Colors.orange.withOpacity(0.4),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -212,14 +212,14 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                   value: selectedEntry,
                   hint: const Text(
                     "Wähle einen Termin",
-                    style: TextStyle(color: Colors.white),
+                    //style: TextStyle(color: Colors.white),
                   ),
                   items: entries
                       .map((entry) => DropdownMenuItem(
                     value: entry.value,
                     child: Text(
                       entry.label,
-                      style: const TextStyle(color: Colors.white),
+                      //tyle: const TextStyle(color: Colors.white),
                     ),
                   ))
                       .toList(),
@@ -233,7 +233,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                 Center(
                   child: Text(
                     "Erkannt: $checkCounter",
-                    style: const TextStyle(color: Colors.white),
+                    //style: const TextStyle(color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 10),

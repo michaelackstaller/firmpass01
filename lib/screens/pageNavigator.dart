@@ -34,7 +34,7 @@ class _PageNavigatorState extends State<PageNavigator> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: ShaderMask(
@@ -67,11 +67,13 @@ class _PageNavigatorState extends State<PageNavigator> {
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
               gap: 8,
+              rippleColor: Colors.white,
+              hoverColor: Colors.white,
               activeColor: Colors.white,
               iconSize: 35,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
               duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: Colors.transparent,
+              tabBackgroundColor: const Color.fromARGB(255, 38, 48, 40),
               color: Colors.grey,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               selectedIndex: currentIndex,

@@ -124,7 +124,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
         centerTitle: true,
         title: ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
@@ -155,7 +155,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
             : Column(
           children: [
             DropdownMenu<String>(
-              textStyle: const TextStyle(color: Colors.white),
+              //textStyle: const TextStyle(color: Colors.white),
               expandedInsets: const EdgeInsets.symmetric(horizontal: 0),
               dropdownMenuEntries: entries,
               hintText: "Übersicht",

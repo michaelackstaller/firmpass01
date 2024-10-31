@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         
       },
       child: Scaffold(
-        backgroundColor:  Colors.black,
+        //backgroundColor:  Colors.black,
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const Icon(Icons.arrow_downward_rounded),
                       const Text(
                         "Deine ID",
-                        style: TextStyle(fontSize: 30, color: Colors.white),
+                        style: TextStyle(fontSize: 30, /*color: Colors.white*/),
                       ),
                       const Icon(Icons.arrow_downward_rounded),
                       IconButton(
@@ -89,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                         icon: !help
-                            ? const Icon(Icons.help_outline_rounded, color: Colors.grey)
-                            : const Icon(Icons.check_circle_outline_rounded, color: Colors.grey),
+                            ? const Icon(Icons.help_outline_rounded, /*color: Colors.grey*/)
+                            : const Icon(Icons.check_circle_outline_rounded, /*color: Colors.grey*/),
                       ),
                     ],
                   ),
@@ -105,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     )
                         : QrImageView(
-                      backgroundColor: Colors.white,
+                          dataModuleStyle: const QrDataModuleStyle(color: Colors.white, dataModuleShape: QrDataModuleShape.square),
+                      eyeStyle: const QrEyeStyle(color: Colors.white, eyeShape: QrEyeShape.square),
                       data: id,
                       size: 250,
                     ),
@@ -120,21 +121,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Container(
                                 width: 100,
                                 height: 130,
-                                color: const Color.fromARGB(255, 210, 253, 20),
+                                color: const Color.fromARGB(255, 40, 75, 0),
                               ),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: const Color.fromARGB(255, 210, 253, 20),
+                              color:const Color.fromARGB(255, 40, 75, 0),
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             child: Column(
                               children: [
                                 const Text(
                                   "Das ist deine persönliche ID mit der wir dich identifizieren können. Komm am Ende unserer gemeinsammen Aktionen zu einem der Begleiter und zeig im diese, damit wird deine Teilnahme bestätigt:)",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 19),
                                 ),
                                 Submit_Button(
                                   myButtonText: "Verstanden",
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 400,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                  //color: Color.fromARGB(255, 0, 0, 0),
                 ),
                 child: Column(
                   children: [

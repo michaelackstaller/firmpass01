@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
     final bool isKeyboardVisible =
         MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -64,7 +64,7 @@ class LoginPage extends StatelessWidget {
                       'Willkommen!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        //color: Colors.white,
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                       ),
@@ -77,7 +77,7 @@ class LoginPage extends StatelessWidget {
                       'Logge dich ein um fortzufahren',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        //color: Colors.white,
                         fontSize: 16,
                       ),
                     ),

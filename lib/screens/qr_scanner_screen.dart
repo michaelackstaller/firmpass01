@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:firmpass/api/api.dart'; // Ensure the import is correct
@@ -255,7 +254,7 @@ class _BarcodeScannerSimpleState extends State<BarcodeScannerSimple> {
                       FloatingActionButton(
                         heroTag: 'searchButton',
                         backgroundColor: Colors.amber,
-                        onPressed: () => Navigator.pushNamed(context, '/manualSearch_screen'),
+                        onPressed: () => Navigator.pushNamed(context, '/login_page'),//'/manualSearch_screen'
                         child: const Icon(Icons.search_outlined),
                       ),
                       FloatingActionButton.extended(

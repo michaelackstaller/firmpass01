@@ -85,11 +85,17 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 40),
 
                     // username textfield
-                    LoginTextField(
-                      controller: usernameController,
-                      hintText: 'NUTZERNAME',
-                      obscureText: false,
-                    ),
+                    
+                    AutofillGroup(
+                      child: 
+                      Column(
+                        children:[
+                        LoginTextField(
+                        controller: usernameController,
+                        hintText: 'NUTZERNAME',
+                        obscureText: false,
+                      ),
+                    
 
                     const SizedBox(height: 20),
 
@@ -98,6 +104,9 @@ class LoginPage extends StatelessWidget {
                       controller: passwordController,
                       hintText: 'PASSWORT',
                       obscureText: true,
+                    ),
+                        ]
+                    ),
                     ),
 
                     const SizedBox(height: 30),

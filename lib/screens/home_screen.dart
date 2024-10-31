@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return WillPopScope(
       onWillPop: () async {
         exit(0); //TODO: Evtl. Probleme bei Apple: https://developer.apple.com/library/archive/qa/qa1561/_index.html
+        
       },
       child: Scaffold(
         backgroundColor:  Colors.black,

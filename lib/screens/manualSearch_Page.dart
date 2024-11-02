@@ -1,5 +1,6 @@
 import 'package:firmpass/api/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ManualSearchPage extends StatefulWidget {
   const ManualSearchPage({super.key});
@@ -12,7 +13,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
   List<DropdownMenuEntry<String>> entries = [];
   List<Map<String, dynamic>> firmlinge = [];
   bool isLoading = true;
-  String? selectedEntry;
+  String? selectedEntry = 'Gottedienst';
   String searchQuery = '';
 
   @override
@@ -84,17 +85,18 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Confirm Completion"),
-          content: Text("Do you want to mark this entry as completed for ${firmling['firstName']} ${firmling['lastName']}?"),
+          backgroundColor: Colors.white,
+          title: const Text("Auswahl bestätigen",style: TextStyle(color: Colors.black),),
+          content: Text("Möchtest du die Aktion $selectedEntry für ${firmling['firstName']} ${firmling['lastName']} bestätigen?" ,style: TextStyle(color: Colors.black),),
           actions: <Widget>[
             TextButton(
-              child: const Text("Cancel"),
+              child: const Text("Abbrechen", style: TextStyle(color: Colors.black),),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text("Confirm"),
+              child: const Text("BESTÄTIGEN", style: TextStyle(color: Colors.black),),
               onPressed: () async {
                 Navigator.of(context).pop();
                 try {
@@ -105,7 +107,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                     await Api().markFirmsonntagAsCompleted(firmling['id'].toString(), entryId);
                   }
                   scaffoldMessengerContext.showSnackBar(
-                    const SnackBar(content: Text("Marked as completed!")),
+                    const SnackBar(content: Text("Teilnahme bestätigt")),
                   );
                 } catch (e) {
                   scaffoldMessengerContext.showSnackBar(
@@ -155,6 +157,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
             : Column(
           children: [
             DropdownMenu<String>(
+              initialSelection: 'Gottesdienst',
               //textStyle: const TextStyle(color: Colors.white),
               expandedInsets: const EdgeInsets.symmetric(horizontal: 0),
               dropdownMenuEntries: entries,
@@ -176,6 +179,8 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
               height: 20,
             ),
             TextField(
+              cursorColor: Colors.white,
+              cursorErrorColor: Colors.green,
               style: const TextStyle(color: Colors.white),
               autofocus: true,
               keyboardType: TextInputType.name,
@@ -215,8 +220,13 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
                       if (selectedEntry != null) {
                         final parts = selectedEntry!.split(':');
                         bool isFirmstunde = parts[0] == 'Firmstunde';
-                        String entryId = parts[1];
-                        _confirmMarkAsCompleted(
+                        String entryId;
+                        /*if (selectedEntry == 'Gottedienst' || selectedEntry == 'Soziale Aktion') {
+                          entryId = '1';
+                        }else{*/
+                        entryId = parts[1]; 
+                        //}
+                        _confirmMarkAsCompleted( //TODO Gottesdiens und SozAkt lassen sich nicht bestätigen, da kein Doppelpunkt
                           context,
                           firmling,
                           entryId,
